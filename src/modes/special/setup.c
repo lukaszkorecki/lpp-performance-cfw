@@ -138,6 +138,7 @@ void setup_init() {
 	rgb_led(72, mode_fader_r >> 2, mode_fader_g >> 2, mode_fader_b >> 2); // Fader mode
 	rgb_led(73, mode_programmer_r >> 2, mode_programmer_g >> 2, mode_programmer_b >> 2); // Programmer mode
 	rgb_led(61, mode_piano_r >> 2, mode_piano_g >> 2, mode_piano_b >> 2); // Piano mode
+	rgb_led(62, mode_mpc_r >> 2, mode_mpc_g >> 2, mode_mpc_b >> 2); // Piano mode
 
 	switch (mode_default) {
 		case 0:
@@ -166,6 +167,10 @@ void setup_init() {
 
 		case 6:
 			rgb_led(61, mode_piano_r, mode_piano_g, mode_piano_b); // Piano mode selected
+			break;
+
+		case 7:
+			rgb_led(62, mode_mpc_r, mode_mpc_g, mode_mpc_b); // MPC mode selected
 			break;
 	}
 	
@@ -228,8 +233,8 @@ void setup_surface_event(u8 p, u8 v, u8 x, u8 y) {
 			mode_default = p - 68;
 			mode_refresh();
 		
-		} else if (p == 61) {
-			mode_default = mode_piano;
+		} else if (61 <= p && p <= 62) {
+			mode_default = p - 55;
 			mode_refresh();
 		
 		} else if (mode_default == mode_performance) {
